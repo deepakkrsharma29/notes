@@ -1,0 +1,12 @@
+1. Host a WordPress blog on Amazon Linux 
+
+-> https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/hosting-wordpress.html
+
+2. How to set up password authentication in apache (httpd) with htpasswd and .htaccess on RHEL / CentOS 7
+
+-> https://www.golinuxhub.com/2018/04/how-to-set-up-password-authentication-htpasswd-htaccess-centos/
+
+3. Reset the MariaDB Root Password
+
+-> https://robbinespu.github.io/eng/2018/03/29/Reset_mariadb_root_password.html
+

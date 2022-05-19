@@ -1,0 +1,84 @@
+Ubuntu System---
+
+sudo apt-get remove docker docker-engine docker.io containerd runc
+sudo apt-get update
+sudo apt-get install \
+    ca-certificates \
+    curl \
+    gnupg \
+    lsb-release
+	
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+    
+sudo apt-get update
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
+
+sudo docker run hello-world
+
+-------------------------------------------------------------------------------------------------------------
+
+RedHat rhel8  --System
+
+yum install -y yum-utils
+yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+yum install docker-ce -y
+systemctl enable --now docker
+systemctl status docker
+docker -v
+
+--------------------------------------------------------------------------------------------------------------
+
+docker ps     / docker container ls			-->  to list running container
+docker ps -a  /	docker container ls -a   	-->  to list all container
+docker images        						-->  to list images in local repository
+docker run -it --name=con1 image:tag        -->  (run container)
+EXIT  --            -->  container stop     -->  ctrl p+q(keep in running mode)
+docker attach con1                          -->  (to attach or login within a container
+docker start con1
+docker ps -q                                -->  show id of container
+docker stop $(docker ps -q)
+docker rm $(docker ps -a -q)
+docker rm -f 
+docker rmi imagename                        -->  remove image
+docker images -q                            -->  check id of image
+docker rmi $(docker images -q)              -->  to remove all images
+docker inspect con1
+----------------------------------------------------------------------------------------------------
+
+Docker Host  -- jis machine pe work kr rahe ho....   (container launch kr re ho)
+Docker Client--  Multipe docker host manage krne wali machine
+Images --> No of layers   -->  Application + Library
+Container -->  Runnable image
+Registry  --> Docker hub--> collection of images
+/var/lib/overlay2     -->   all image layer
+
+-------------------------------------------------------------------------------------------------
+
+docker run -it --name=con1 centos
+docker exec -it con1  /bin/bash
+docker top con1     (check pid)
+yum install net-tools        (for if config)    ip addr
+docker inspect con1
+Namespace -->  Boundry of con
+Cgroup    -->    Control group, resource control etc/apt/sources
+docker stop con1
+docker rm con1
+
+docker run -d --name=con1 nginx     (detached mode  -->  runs in background)
+docker ps
+docker exec -it con1 /bin/bash
+cd /usr/share/nginx/html
+Port Forward  8081=>80 
+
+jabhi bhi heavy os container chlao to -it (shell deke chlao) to exit nhi hoga
+total container = total init in   cd /var/lib/docker/overlay2
+image will not removed of running or stopped container
+
+
+
+
+

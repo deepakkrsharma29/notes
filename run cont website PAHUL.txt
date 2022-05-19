@@ -1,0 +1,54 @@
+Create a live website from centos/httpd
+-----------------------------------------------------------------
+docker container run -d --name con1 -p 80:80 centos/httpd
+docker attach con1  (HANG)
+docker exec -it con1 /bin/bash
+echo "Hello Gyz" >> /var/www/html/index.html
+
+---------------------------------------------------------------------
+Create a live website with nginx
+
+docker run -d --name con1 -p 80:80 nginx
+docker exec -it con1 /bin/bash
+cd /usr/share/nginx/html
+rm -rf *
+echo "Hello Gyz" >> index.html
+
+
+systemctl stop firewalld
+firewall-cmd --permanent --add-port=8080/tcp
+firewall-cmd --reload
+-----------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

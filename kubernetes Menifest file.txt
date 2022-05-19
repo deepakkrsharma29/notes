@@ -1,0 +1,130 @@
+1. Normal Menifest File/Configuration File
+
+vim pods.yml
+-> 
+apiVersion: v1
+kind: Pod
+metadata:
+        name: httpdwebserver
+        labels:
+                app: webapp
+                type: frontend
+spec:
+        containers:
+                - name: xyz
+                  image: centos/httpd
+				  
+2. Replication Controller File
+
+->
+apiVersion: v1
+kind: ReplicationController
+metadata:
+        name: deepak
+        labels:
+                app: webapp
+spec:
+        replicas: 5
+        template:
+                metadata:
+                        name: sharma
+                        labels:
+                                app: webapp
+                spec:
+                        containers:
+                                - name: krishna
+                                  image: centos/httpd
+
+3. Replica Set File
+
+->
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+        name: myrs
+        labels:
+                course: redhat
+spec:
+        replicas: 10
+        selector:
+                matchLabels:
+                        app: webapp
+        template:
+                metadata:
+                        name: xyz
+                        labels:
+                                app: webapp
+                spec:
+                        containers:
+                                - name: lsd
+                                  image: centos/httpd
+
+4. Deployment file
+
+->
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+        name: myrs
+        labels:
+                course: redhat
+spec:
+        replicas: 30
+        selector:
+                matchLabels:
+                        app: webapp
+        template:
+                metadata:
+                        name: xyz
+                        labels:
+                                app: webapp
+                spec:
+                        containers:
+                                - name: lsd
+                                  image: rupeshsaini09/website
+
+SERVICES
+1. NodePort
+2. Cluster IP
+3. Load Balancer
+
+1. Node Port (vim svc.yml)
+step 1 --> Firstly run a Deployment file with containing website host Ex.- image: rupeshsaini09/website
+step 2 --> 
+apiVersion: v1
+kind: Service
+metadata:
+        name: mywebsite
+        labels:
+                app: website
+spec:
+        type: NodePort
+        ports:
+                - targetPort: 80
+                  port: 80
+                  nodePort: 30080
+        selector:
+                app: webapp
+
+2. Cluster IP (vim csvc.yml)
+step 1 --> Firstly run a Deployment file with containing website host Ex.- image: rupeshsaini09/website
+step 2 -->
+NOTE --> Website will run only on host m/c note on browser
+->
+apiVersion: v1
+kind: Service
+metadata:
+        name: dbservice
+        labels:
+                app: website
+spec:
+        type: ClusterIP
+        ports:
+                - targetPort: 80
+                  port: 80
+        selector:
+                app: webapp
+
+3. Load Balancer
+step 1 --> Make a new VM with 80 Port
+step 2 --> 
